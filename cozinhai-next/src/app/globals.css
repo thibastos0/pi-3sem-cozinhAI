@@ -25,7 +25,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.dacherry{
-  font-family: 'DaCherry',
-  src: url('/fonts/Dacherry.ttf') format('truetype')
+@font-face{
+  font-family: 'DaCherry';
+  src: url('/fonts/Dacherry.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
