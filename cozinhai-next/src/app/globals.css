@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --header-bg: #EDF2F4;
+  --header-bg: #edf2f4;
 }
 
 @theme inline {
@@ -37,14 +37,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@font-face{
-  font-family: 'DaCherry';
-  src: url('/fonts/Dacherry.ttf') format('truetype');
+@font-face {
+  font-family: "DaCherry";
+  src: url("/fonts/Dacherry.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-}
-
-.header {
-  background-color: var(--header-bg);
 }
