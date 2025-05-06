@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap");
 
-body{
-  font-family: 'Alexandria';
+body {
+  font-family: "Alexandria";
 }
 
 .header {
@@ -45,14 +45,18 @@ button:hover {
   border-radius: 20px;
 }
 
-.card{
+.card {
   padding: 20px;
 }
 
-.buttonContent{
+.buttonContent {
   padding: 4px 18px;
 }
 
-.estacao{
+.estacao {
   padding: 10px;
+}
+
+.ingredientCard {
+  padding: 30px;
 }
