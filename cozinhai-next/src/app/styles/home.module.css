@@ -32,3 +32,7 @@ button:hover {
   cursor: pointer;
   opacity: 60%;
 }
+
+.main {
+  margin: 60px 24px;
+}
