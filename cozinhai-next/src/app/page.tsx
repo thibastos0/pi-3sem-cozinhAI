@@ -7,16 +7,16 @@ export default function Home() {
       <div className="flex items-center justify-between px-8 py-4 bg-[#EDF2F4] padding-x" style={{ padding: '1rem 5rem'  }}>
         <div className="flex items-center space-x-4">
           <img src="/images/logo.svg" alt="Logo da CozinhAi" className="h-12 w-auto" />
-          <h1 className="text-4xl font-bold bg-gradient-to-t from-[#22577A] to-[#57CC99] bg-clip-text text-transparent" style={{ fontFamily: 'DaCherry' }}>
+          <h1 className="text-4xl font-bold bg-gradient-to-t from-[#22577A] to-[#57CC99] bg-clip-text text-transparent" style={{ fontFamily: 'DaCherry', cursor: 'default', marginLeft: '0.4rem'}}>
             CozinhAI
           </h1>
         </div>
 
-        <Botao texto="Experimente agora!" destino="" />
+        <Botao texto="Experimente agora!" destino="/home" />
       </div>
 
       <div>
-        <h1 className="bold">Lorem Ipsum!</h1>
+        <h1 className="bold" style={{fontFamily: 'Alexandria'}}>Lorem Ipsum!</h1>
       </div>
     </>
   );
