@@ -22,6 +22,12 @@ export default function Home() {
           <RecomendacaoCard image="images/boloDeCaneca.svg" title="Bolo de Caneca"/>
         </div>
       </main>
+
+      {/* Seção de ingredientes da época */}
+      <div className="flex flex-col justify-center items-center gap-12">
+        <h1 className="text-[#22577A] font-bold text-2xl">Ingredientes da Época</h1>
+        <p className={`text-white bg-[#22577A] rounded-3xl ${styles.estacao} w-3xs text-center`}>Estação Atual: <strong>Outono</strong></p>
+      </div>
     </div>
   );
 }
