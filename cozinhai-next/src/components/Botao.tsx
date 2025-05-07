@@ -15,7 +15,7 @@ export default function Botao({ texto, destino }: botaoProps) {
       href={destino}
     >
       <div
-        className={`text-white flex flex-row justify-between ${styles.buttonContent}`}
+        className={`text-white flex flex-row justify-between gap-2 ${styles.buttonContent}`}
       >
         <p>{texto}</p>
         <p>{">"}</p>
