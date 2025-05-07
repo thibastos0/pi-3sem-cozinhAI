@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import RecomendacaoCard from "@/components/RecomendacaoCard";
 import styles from "../styles/home.module.css";
 import IngredientCard from "@/components/IngredientCard";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -50,6 +51,8 @@ export default function Home() {
           <IngredientCard image="images/aboboraIcon.svg" title="Abóbora" />
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
