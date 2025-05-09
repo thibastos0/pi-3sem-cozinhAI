@@ -27,7 +27,12 @@ export default function Home() {
         </div>
       </div>
 
-      <h2 style={{fontFamily: 'Alexandria', fontSize: "60.88px", fontWeight: "bold"}}>Seja seu próprio chefe!</h2>
+      <h2 className="mt-[67.52] mb-[105] flex justify-center" style={{fontFamily: 'Alexandria', fontSize: "60.88px", fontWeight: "bold"}}>Seja seu próprio chefe!</h2>
+      
+      <div className="flex"> {/* Div que contém a imagem das pessoas cozinhando e o texto que fica lado a lado com ele */}
+      <img src="/images/cozinheiros.svg" alt="Duas pessoas cozinhando juntas."></img>
+      <p className="flex" style={{fontFamily: "Alexandria", fontWeight: "300", fontSize: "38.72px"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been</p>
+      </div>
     </>
   );
 }
