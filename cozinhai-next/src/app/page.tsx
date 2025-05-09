@@ -17,9 +17,11 @@ export default function Home() {
       <div>
         <img alt="Bowl de salada com milho, tomate, ovos, e frango" src="/images/salada.svg"/>
       </div>
-      <h1 className="bold" style={{fontFamily: 'Alexandria', fontSize: "63.12", fontWeight: "bold"}}>Lorem Ipsum!</h1>
-      <p style={{fontSize: "31.56", fontWeight: "300"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been </p>
-      <Botao texto="Experimente agora!" destino="/home" fontSize="28.92"/>
+      <h1 className="bold" style={{fontFamily: 'Alexandria', fontSize: "63.12px", fontWeight: "bold"}}>Lorem Ipsum!</h1>
+      <p style={{fontSize: "31.56px", fontWeight: "300"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been </p>
+      <div className="px-8 py-4 flex justify-start">
+      <Botao texto="Experimente agora!" destino="/home" fontSize="28.92px"/>
+      </div>
     </>
   );
 }

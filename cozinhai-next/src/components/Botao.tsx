@@ -8,6 +8,7 @@ interface botaoProps {
   fontSize?: string
 }
 
+//quando estiver passando fontSize se atentar para passar junto uma medida, ex: "20px" ou "3rem"
 export default function Botao({ texto, destino, fontSize }: botaoProps) {
   return (
     <Link
