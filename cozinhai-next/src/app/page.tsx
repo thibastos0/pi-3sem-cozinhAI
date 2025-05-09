@@ -18,9 +18,9 @@ export default function Home() {
         <div>
           <img alt="Bowl de salada com milho, tomate, ovos, e frango" src="/images/salada.svg" className="absolute inset-0 w-full h-full object-cover z-0" />
         </div>
-        <div className="relative z-10 flex flex-col justify-center items-start h-full w-[454px] ml-[163px] py-8">
-          <h1 className="bold" style={{ fontFamily: 'Alexandria', fontSize: "63.12px", fontWeight: "bold" }}>Lorem Ipsum!</h1>
-          <p style={{ fontSize: "31.56px", fontWeight: "300" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been </p>
+        <div className="relative z-10 flex flex-col justify-center items-start h-full w-[28.375rem] ml-[10.188rem] py-8">
+          <h1 className="bold" style={{ fontFamily: 'Alexandria', fontSize: "3.945rem", fontWeight: "bold" }}>Lorem Ipsum!</h1>
+          <p style={{ fontSize: "1.973rem", fontWeight: "300" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been </p>
           <div className="py-10 flex justify-start">
             <Botao texto="Experimente agora!" destino="/home" fontSize="28.92px" />
           </div>
