@@ -1,4 +1,5 @@
 import Botao from "@/components/Botao";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -19,8 +20,8 @@ export default function Home() {
           <img alt="Bowl de salada com milho, tomate, ovos, e frango" src="/images/salada.svg" className="absolute inset-0 w-full h-full object-cover z-0" />
         </div>
         <div className="relative z-10 flex flex-col justify-center items-start h-full w-[28.375rem] ml-[10.188rem] py-8">
-          <h1 className="bold" style={{ fontFamily: 'Alexandria', fontSize: "3.945rem", fontWeight: "bold" }}>Lorem Ipsum!</h1>
-          <p style={{ fontSize: "1.973rem", fontWeight: "300" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been </p>
+          <h1 className="bold" style={{ fontFamily: 'Alexandria', fontSize: "3.945rem", fontWeight: "bold" }}>Sem ideias para o jantar?</h1>
+          <p style={{ fontSize: "1.973rem", fontWeight: "300" }}>Selecione o que tem na geladeira e receba sugestões de receitas deliciosas, feitas sob medida para você.</p>
           <div className="py-10 flex justify-start">
             <Botao texto="Experimente agora!" destino="/home" fontSize="28.92px" />
           </div>
@@ -29,10 +30,11 @@ export default function Home() {
 
       <h2 className="mt-[67.52] mb-[105] flex justify-center" style={{fontFamily: 'Alexandria', fontSize: "60.88px", fontWeight: "bold"}}>Seja seu próprio chefe!</h2>
       
-      <div className="flex"> {/* Div que contém a imagem das pessoas cozinhando e o texto que fica lado a lado com ele */}
-      <img src="/images/cozinheiros.svg" alt="Duas pessoas cozinhando juntas."></img>
-      <p className="flex" style={{fontFamily: "Alexandria", fontWeight: "300", fontSize: "38.72px"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been</p>
+      <div className="flex items-center mb-[5rem]"> {/* Div que contém a imagem das pessoas cozinhando e o texto que fica lado a lado com ele */}
+    <img className="max-w-[40%]" src="/images/cozinheiros.svg" alt="Duas pessoas cozinhando juntas."></img>
+      <p className="flex ml-[7.625rem] max-w-[41.87rem]" style={{fontFamily: "Alexandria", fontWeight: "300", fontSize: "38.72px"}}>Menos desperdício e mais sabor no seu dia a dia. Use o que já está em casa e descubra novas receitas criativas para variar no cardápio.</p>
       </div>
+    <Footer />
     </>
   );
 }
