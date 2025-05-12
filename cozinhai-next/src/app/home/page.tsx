@@ -22,14 +22,18 @@ export default function Home() {
           <RecomendacaoCard
             image="images/miniChurros.svg"
             title="Mini Churros"
+            slug="mini-churros"
           />
           <RecomendacaoCard
             image="images/panquecaDeBanana.svg"
             title="Panqueca de Banana"
+            slug="panqueca-de-banana"
+
           />
           <RecomendacaoCard
             image="images/boloDeCaneca.svg"
             title="Bolo de Caneca"
+            slug="bolo-de-caneca"
           />
         </div>
       </main>
@@ -45,10 +49,10 @@ export default function Home() {
           Estação Atual: <strong>Outono</strong>
         </p>
         <div className="flex flex-row gap-11 justify-center w-full">
-          <IngredientCard image="images/ameixaIcon.svg" title="Ameixa" />
-          <IngredientCard image="images/cenouraIcon.svg" title="Cenoura" />
-          <IngredientCard image="images/abacateIcon.svg" title="Abacate" />
-          <IngredientCard image="images/aboboraIcon.svg" title="Abóbora" />
+          <IngredientCard image="images/ameixaIcon.svg" title="Ameixa" slug={""} />
+          <IngredientCard image="images/cenouraIcon.svg" title="Cenoura" slug={""} />
+          <IngredientCard image="images/abacateIcon.svg" title="Abacate" slug={""} />
+          <IngredientCard image="images/aboboraIcon.svg" title="Abóbora" slug={""} />
         </div>
       </div>
 
