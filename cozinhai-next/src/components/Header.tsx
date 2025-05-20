@@ -1,4 +1,5 @@
 import styles from "../app/styles/home.module.css";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
   return (
@@ -10,20 +11,10 @@ export default function Header() {
           <img className="" src="/images/menuHeader.svg" />
         </button>
 
-        <div className={styles.inputContainer}>
-          <input
-            className={`border-[#22577A] rounded-xl text-black border-2 p-1 font-alexandria w-lg ${styles.input}`}
-            type="text"
-            placeholder="Buscar"
-          />
-          <button>
-            <img
-              className={styles.lupaIcon}
-              src="/images/lupaIcon.svg"
-              alt=""
-            />
-          </button>
-        </div>
+        <SearchBar
+          placeholder="Busque receitas"
+          imgURL="/images/lupaIcon.svg"
+        ></SearchBar>
 
         <button>
           <img className="w-7.5" src="/images/profileIcon.svg" alt="" />
