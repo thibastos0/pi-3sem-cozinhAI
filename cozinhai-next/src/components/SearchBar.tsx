@@ -1,11 +1,13 @@
 import styles from "@/app/styles/home.module.css";
+import Link from "next/link";
 
 interface CardProps {
   placeholder: string;
   imgURL: string;
+  ref: string
 }
 
-export default function SearchBar({ placeholder, imgURL }: CardProps) {
+export default function SearchBar({ placeholder, imgURL, ref }: CardProps) {
   return (
     <div className={styles.inputContainer}>
       <input
@@ -13,9 +15,9 @@ export default function SearchBar({ placeholder, imgURL }: CardProps) {
         type="text"
         placeholder={placeholder}
       />
-      <button>
+      <Link href={ref}>
         <img className={`w-5 ${styles.lupaIcon}`} src={imgURL} alt="" />
-      </button>
+      </Link>
     </div>
   );
 }
