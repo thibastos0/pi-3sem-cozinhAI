@@ -3,22 +3,20 @@ import SearchBar from "./SearchBar";
 
 export default function Header() {
   return (
-    <div className="bg-[#EDF2F4] flex w-full">
-      <header
-        className={`flex flex-row items-center gap-7 justify-between w-full ${styles.header}`}
-      >
+    <div className="bg-[#EDF2F4] w-full">
+      <header className={`flex items-center justify-between w-full p-4 gap-4 flex-wrap sm:flex-nowrap ${styles.header}`}>
         <button>
-          <img className="" src="/images/menuHeader.svg" />
+          <img className="w-6 sm:w-7 md:w-8" src="/images/menuHeader.svg" />
         </button>
 
         <SearchBar
           placeholder="Busque receitas"
           imgURL="/images/lupaIcon.svg"
-          ref={`https://api.spoonacular.com/recipes/complexSearch?query=${"W.I.P."}&apiKey=${"W.I.P."}`}
-        ></SearchBar>
+          searchUrl={`https://api.spoonacular.com/recipes/complexSearch?query=${"W.I.P."}&apiKey=${"W.I.P."}`}
+        />
 
         <button>
-          <img className="w-7.5" src="/images/profileIcon.svg" alt="" />
+          <img className="w-6 sm:w-7 md:w-7.5" src="/images/profileIcon.svg" alt="" />
         </button>
       </header>
     </div>
