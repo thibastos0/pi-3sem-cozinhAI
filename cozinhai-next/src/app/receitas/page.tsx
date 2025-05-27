@@ -8,27 +8,27 @@ const recipes = [
   {
     id: 1,
     name: "Mini Churros",
-    image: "/placeholder.svg?height=120&width=120",
+    image: "/images/miniChurros.svg",
   },
   {
     id: 2,
     name: "Bolo de Cenoura",
-    image: "/placeholder.svg?height=120&width=120",
+    image: "/images/boloDeCenoura.svg",
   },
   {
     id: 3,
     name: "Torta de Frango",
-    image: "/placeholder.svg?height=120&width=120",
+    image: "/images/tortaDeFrango.svg",
   },
   {
     id: 4,
     name: "Bolinho de Chuva",
-    image: "/placeholder.svg?height=120&width=120",
+    image: "/images/bolinhoDeChuva.svg",
   },
   {
     id: 5,
     name: "Pastel de Carne",
-    image: "/placeholder.svg?height=120&width=120",
+    image: "/images/pastelDeCarne.svg",
   },
 ]
 
@@ -37,19 +37,18 @@ export default function RecipeResults() {
     <div className="min-h-screen bg-gray-50">
       <Header />
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        
-        <h1 className="" style={{fontSize: "3.246rem", color: "#2EC4B6"}}>Resultados</h1>
+      <main className="max-w-7xl mx-auto px-4 py-4">
+        <div className="max-w-4xl mx-auto">
+        <h1 className="mb-[1rem]" style={{fontSize: "3.246rem", color: "#2EC4B6"}}>Resultados</h1>
 
-        {/* Recipe Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {recipes.map((recipe) => (
             <div
               key={recipe.id}
-              className="bg-white rounded-2xl border-2 border-blue-600 p-6 shadow-sm hover:shadow-md transition-shadow"
+              className="bg-white rounded-2xl border-2 border-[#22577A] p-6 shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-4">
-                {/* Recipe Image */}
+
                 <div className="flex-shrink-0">
                   <Image
                     src={recipe.image || "/placeholder.svg"}
@@ -61,12 +60,13 @@ export default function RecipeResults() {
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-blue-600 mb-4">{recipe.name}</h3>
+                  <h3 className="text-xl font-semibold text-[#22577A] mb-4">{recipe.name}</h3>
                   <Botao texto="Ver receita" destino="/receitas"/>
                 </div>
               </div>
             </div>
           ))}
+        </div>
         </div>
       </main>
     </div>
