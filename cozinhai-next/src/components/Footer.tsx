@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <div className="bg-[#22577A] p-18 gap-24 flex flex-col">
       <div className="flex flelx-row justify-between">
-        <Link href="http://localhost:3000">
+        <Link href="#">
           <img
             src="/images/fullLogoWhite.svg"
             className="w-56 hover:brightness-75"
@@ -40,14 +40,11 @@ export default function Footer() {
 
       <div>
         <ul className="text-white flex flex-col gap-8 m-2.5 text-[20px]">
-          <a href="http://localhost:3000" className="hover:underline">
+          <a href="#" className="hover:underline">
             <li>Início</li>
           </a>
           <a href="" className="hover:underline">
             <li>Sobre</li>
-          </a>
-          <a href="" className="hover:underline">
-            <li>Contato</li>
           </a>
         </ul>
       </div>

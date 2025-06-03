@@ -73,6 +73,10 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          <button className="text-[#FFFFFF] bg-[#22577A] px-4 py-2 rounded-3xl m-8">
+            Buscar Receita
+          </button>
         </main>
 
         {/* Seção de recomendações diárias */}
