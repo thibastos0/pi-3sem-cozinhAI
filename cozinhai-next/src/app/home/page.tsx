@@ -13,6 +13,7 @@ export default function Home() {
   const [ingredients, setIngredients] = useState<String[]>([]);
   const [suggestions, setSuggestions] = useState<{ name: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [recipes, setRecipes] = useState<any[]>([]);
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
@@ -56,6 +57,25 @@ export default function Home() {
     const newList = [...ingredients];
     newList.splice(index, 1);
     setIngredients(newList);
+  }
+
+  async function searchRecipes() {
+    const ingredientsInUrl = ingredients.join(",+");
+    try {
+      const response = await fetch(
+        `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${ingredientsInUrl}`
+      );
+      const data = await response.json();
+      // data is an array of recipes, each with a 'title' property
+      if (Array.isArray(data) && data.length > 0) {
+        setRecipes(data);
+        // logs the title of the first recipe
+      } else {
+        console.log("No recipes found.");
+      }
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    }
   }
 
   return (
@@ -119,18 +139,30 @@ export default function Home() {
                 </span>
                 <button
                   onClick={() => removeIngredient(index)}
-                  className="text-[#22577A] text-sm sm:text-base"
+                  className="text-[#22577A]"
                 >
                   ✕
                 </button>
               </div>
             ))}
           </div>
-
-          <button className="text-[#FFFFFF] bg-[#22577A] px-4 py-2 rounded-3xl m-8">
+          <button
+            className="text-[#FFFFFF] bg-[#22577A] px-4 py-2 rounded-3xl m-8"
+            onClick={() => searchRecipes()}
+          >
             Buscar Receita
           </button>
         </main>
+
+        {recipes &&
+          recipes.map((item, idx) => (
+            <RecomendacaoCard
+              key={idx}
+              title={item.title}
+              image={item.image}
+              slug={item.title}
+            />
+          ))}
 
         <h1 className="text-[#22577A] font-bold text-xl sm:text-2xl text-center">
           Recomendações Diárias
