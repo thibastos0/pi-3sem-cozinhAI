@@ -2,42 +2,36 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
+<<<<<<< HEAD
     <div className="bg-[#22577A] p-18 gap-24 flex flex-col">
       <div className="flex flelx-row justify-between">
         <Link href="#">
+=======
+    <div className="bg-[#22577A] p-8 md:p-18 gap-12 flex flex-col">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+        <Link href="/">
+>>>>>>> 21fb6e0ff68bddb378ef88d64c8a6b0858fc5531
           <img
             src="/images/fullLogoWhite.svg"
-            className="w-56 hover:brightness-75"
+            className="w-40 md:w-56 hover:brightness-75"
           />
         </Link>
-        <div className="flex flex-row gap-5 items-center">
-          <Link href="https://www.tiktok.com" target="_blank">
-            <img
-              src="/images/tiktokIcon.svg"
-              className=" w-8 hover:brightness-75 transition"
-            />
-          </Link>
-          <Link href="https://www.x.com" target="_blank">
-            <img
-              src="/images/twitterIcon.svg"
-              className=" w-8 hover:brightness-75 transition"
-            />
-          </Link>
-          <Link href="https://www.instagram.com" target="_blank">
-            <img
-              src="/images/instagramIcon.svg"
-              className=" w-8 hover:brightness-75 transition"
-            />
-          </Link>
-          <Link href="https://www.facebook.com" target="_blank">
-            <img
-              src="/images/facebookIcon.svg"
-              className=" w-8 hover:brightness-75 transition"
-            />
-          </Link>
+
+        <div className="flex flex-row gap-4 md:gap-5 items-center">
+          {[
+            { href: "https://www.tiktok.com", src: "/images/tiktokIcon.svg" },
+            { href: "https://www.x.com", src: "/images/twitterIcon.svg" },
+            { href: "https://www.instagram.com", src: "/images/instagramIcon.svg" },
+            { href: "https://www.facebook.com", src: "/images/facebookIcon.svg" }
+          ].map((icon, i) => (
+            <Link key={i} href={icon.href} target="_blank">
+              <img src={icon.src} className="w-6 md:w-8 hover:brightness-75 transition" />
+            </Link>
+          ))}
         </div>
       </div>
 
+<<<<<<< HEAD
       <div>
         <ul className="text-white flex flex-col gap-8 m-2.5 text-[20px]">
           <a href="#" className="hover:underline">
@@ -48,6 +42,13 @@ export default function Footer() {
           </a>
         </ul>
       </div>
+=======
+      <ul className="text-white flex flex-col md:flex-row gap-6 md:gap-12 mt-4 text-lg md:text-[20px]">
+        <a href="/" className="hover:underline"><li>Início</li></a>
+        <a href="#" className="hover:underline"><li>Sobre</li></a>
+        <a href="#" className="hover:underline"><li>Contato</li></a>
+      </ul>
+>>>>>>> 21fb6e0ff68bddb378ef88d64c8a6b0858fc5531
     </div>
   );
 }
