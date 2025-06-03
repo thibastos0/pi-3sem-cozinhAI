@@ -3,9 +3,9 @@
 import Header from "@/components/Header";
 import RecomendacaoCard from "@/components/RecomendacaoCard";
 import styles from "../styles/home.module.css";
-import IngredientCard from "@/components/IngredientCard";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import IngredientCard from "@/components/IngredientCard";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
