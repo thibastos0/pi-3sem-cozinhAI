@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useState } from "react";
 import styles from "@/app/styles/home.module.css";
@@ -10,19 +10,23 @@ interface CardProps {
   searchUrl: string;
 }
 
-export default function SearchBar({ placeholder, imgURL, searchUrl }: CardProps) {
-  const [search, setSearch] = useState('')
+export default function SearchBar({
+  placeholder,
+  imgURL,
+  searchUrl,
+}: CardProps) {
+  const [search, setSearch] = useState("");
 
   return (
     <div
-      className={`flex items-center gap-2 border-2 border-[#22577A] rounded-xl px-2 py-1 w-full max-w-xs sm:max-w-md ${styles.inputContainer}`}
+      className={`flex items-center gap-2 border-2 border-[#22577A] rounded-xl px-2 py-1 sm:min-w-96 ${styles.inputContainer}`}
     >
       <input
         className={`text-black w-full outline-none font-alexandria text-sm sm:text-base ${styles.input}`}
         type="text"
         placeholder={placeholder}
         value={search}
-        onChange={(e)=> setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
       />
       <Link href={`/receitas?query=${encodeURIComponent(search)}`}>
         <img

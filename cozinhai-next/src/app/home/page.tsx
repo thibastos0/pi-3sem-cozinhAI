@@ -31,7 +31,7 @@ export default function Home() {
     <div className="bg-[#FFFFFF] min-h-screen w-full">
       <Header />
       <div
-        className={`flex flex-col items-center justify-center gap-20 px-4 sm:px-6 ${styles.main}`}
+        className={`flex flex-col items-center justify-center gap-20 px-4 py-16 sm:px-6 ${styles.main}`}
       >
         <img src="/images/fullLogo.svg" alt="" className="max-w-full h-auto" />
 
