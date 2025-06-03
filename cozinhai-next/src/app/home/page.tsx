@@ -11,36 +11,36 @@ import { apiKey } from "@/app/receitas/page";
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
   const [ingredients, setIngredients] = useState<String[]>([]);
-  const [suggestion, setSuggestion] = useState([]);
+  const [suggestions, setSuggestions] = useState<{ name: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       if (inputValue.trim() === "") {
-        setSuggestion([]);
+        setSuggestions([]);
         return;
       }
 
-      setIsLoading(true);
       fetch(
         `https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=${apiKey}&query=${inputValue}`
       )
         .then((res) => res.json())
         .then((data) => {
-          setSuggestion(data);
+          setSuggestions(data);
         })
         .catch((err) => {
           console.error("Erro ao sugerir ingredientes", err);
         })
         .finally(() => setIsLoading(false));
-    }, 3000);
+      setIsLoading(true);
+    }, 2000);
 
     return () => clearTimeout(delayDebounce);
   }, [inputValue]);
 
   const handleSuggestionClick = (value: any) => {
     setInputValue(value);
-    setSuggestion([]);
+    setSuggestions([]);
   };
 
   function handleIngredient() {
@@ -80,6 +80,7 @@ export default function Home() {
               placeholder="Busque um ingrediente"
               className={`flex-grow bg-transparent py-2 text-black font-alexandria text-sm sm:text-base ${styles.input}`}
             />
+
             <button onClick={handleIngredient}>
               <img
                 src="/images/addIcon.svg"
@@ -87,6 +88,25 @@ export default function Home() {
               />
             </button>
           </div>
+
+          {isLoading && (
+            <div className="relative mt-1 text-sm items-start">
+              Carregando...
+            </div>
+          )}
+          {suggestions.length > 0 && (
+            <ul className="relative z-10 w-full bg-white border rounded shadow mt-1 max-w-2/5">
+              {suggestions.map((item, idx) => (
+                <li
+                  key={idx}
+                  onClick={() => handleSuggestionClick(item.name)}
+                  className="p-1 cursor-pointer hover:bg-gray-300"
+                >
+                  {item.name}
+                </li>
+              ))}
+            </ul>
+          )}
 
           <div className="p-3 flex flex-wrap gap-3 justify-center">
             {ingredients.map((item, index) => (
