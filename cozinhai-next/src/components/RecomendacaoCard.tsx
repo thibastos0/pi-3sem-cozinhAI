@@ -1,4 +1,3 @@
-import styles from "../app/styles/home.module.css";
 import Botao from "./Botao";
 import Image from "next/image";
 
@@ -11,15 +10,15 @@ export type CardProps = {
 export default function RecomendacaoCard({ image, title, slug }: CardProps) {
   return (
     <div
-      className={`bg-white border-[#22577A] border-2 rounded-3xl flex flex-col justify-center w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4 ${styles.card}`}
+      className={`bg-white border-[#22577A] border-2 rounded-3xl flex flex-col justify-center sm:w-1/2 md:w-1/3 lg:w-1/4 p-4`}
     >
       <div className="flex flex-col gap-2 w-full">
         <Image
           src={image || "/placeholder.png"}
           alt={title}
           className="rounded-[22px] w-full object-cover"
-          width={900}
-          height={550}
+          width={300}
+          height={80}
         />
       </div>
       <h2 className="font-semibold text-[#22577A] text-lg md:text-[22px] min-h-17">
