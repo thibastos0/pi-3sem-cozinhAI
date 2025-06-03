@@ -4,14 +4,44 @@ import Header from "@/components/Header";
 import RecomendacaoCard from "@/components/RecomendacaoCard";
 import styles from "../styles/home.module.css";
 import Footer from "@/components/Footer";
-import { useState } from "react";
-import IngredientCard from "@/components/IngredientCard";
+import { useEffect, useState } from "react";
 import IngredientesDaEpoca from "@/components/ingredientes-da-epoca";
+import { apiKey } from "@/app/receitas/page";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
   const [ingredients, setIngredients] = useState<String[]>([]);
   const [suggestion, setSuggestion] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (inputValue.trim() === "") {
+        setSuggestion([]);
+        return;
+      }
+
+      setIsLoading(true);
+      fetch(
+        `https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=${apiKey}&query=${inputValue}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setSuggestion(data);
+        })
+        .catch((err) => {
+          console.error("Erro ao sugerir ingredientes", err);
+        })
+        .finally(() => setIsLoading(false));
+    }, 3000);
+
+    return () => clearTimeout(delayDebounce);
+  }, [inputValue]);
+
+  const handleSuggestionClick = (value: any) => {
+    setInputValue(value);
+    setSuggestion([]);
+  };
 
   function handleIngredient() {
     const trimmedValue = inputValue.trim();
