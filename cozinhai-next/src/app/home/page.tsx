@@ -60,6 +60,10 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          <button className="text-[#FFFFFF] bg-[#22577A] px-4 py-2 rounded-3xl m-8">
+            Buscar Receita
+          </button>
         </main>
 
         <h1 className="text-[#22577A] font-bold text-xl sm:text-2xl text-center">Recomendações Diárias</h1>

@@ -15,21 +15,35 @@ export default function Footer() {
           {[
             { href: "https://www.tiktok.com", src: "/images/tiktokIcon.svg" },
             { href: "https://www.x.com", src: "/images/twitterIcon.svg" },
-            { href: "https://www.instagram.com", src: "/images/instagramIcon.svg" },
-            { href: "https://www.facebook.com", src: "/images/facebookIcon.svg" }
+            {
+              href: "https://www.instagram.com",
+              src: "/images/instagramIcon.svg",
+            },
+            {
+              href: "https://www.facebook.com",
+              src: "/images/facebookIcon.svg",
+            },
           ].map((icon, i) => (
             <Link key={i} href={icon.href} target="_blank">
-              <img src={icon.src} className="w-6 md:w-8 hover:brightness-75 transition" />
+              <img
+                src={icon.src}
+                className="w-6 md:w-8 hover:brightness-75 transition"
+              />
             </Link>
           ))}
         </div>
       </div>
 
-      <ul className="text-white flex flex-col md:flex-row gap-6 md:gap-12 mt-4 text-lg md:text-[20px]">
-        <a href="/" className="hover:underline"><li>Início</li></a>
-        <a href="#" className="hover:underline"><li>Sobre</li></a>
-        <a href="#" className="hover:underline"><li>Contato</li></a>
-      </ul>
+      <div>
+        <ul className="text-white flex flex-col gap-8 m-2.5 text-[20px]">
+          <a href="#" className="hover:underline">
+            <li>Início</li>
+          </a>
+          <a href="" className="hover:underline">
+            <li>Sobre</li>
+          </a>
+        </ul>
+      </div>
     </div>
   );
 }
