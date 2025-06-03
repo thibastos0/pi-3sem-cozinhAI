@@ -6,6 +6,7 @@ import styles from "../styles/home.module.css";
 import Footer from "@/components/Footer";
 import { useState } from "react";
 import IngredientCard from "@/components/IngredientCard";
+import IngredientesDaEpoca from "@/components/ingredientes-da-epoca";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
@@ -102,38 +103,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="flex flex-col justify-center items-center gap-8 sm:gap-10 my-16 sm:my-24 px-4 w-full">
-          <h1 className="text-[#22577A] font-bold text-xl sm:text-2xl text-center">
-            Ingredientes da Época
-          </h1>
-          <p
-            className={`text-white bg-[#22577A] rounded-3xl px-4 sm:px-6 py-2 text-center text-sm sm:text-base ${styles.estacao}`}
-          >
-            Estação Atual: <strong>Outono</strong>
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full">
-            <IngredientCard
-              image="images/ameixaIcon.svg"
-              title="Ameixa"
-              slug=""
-            />
-            <IngredientCard
-              image="images/cenouraIcon.svg"
-              title="Cenoura"
-              slug=""
-            />
-            <IngredientCard
-              image="images/abacateIcon.svg"
-              title="Abacate"
-              slug=""
-            />
-            <IngredientCard
-              image="images/aboboraIcon.svg"
-              title="Abóbora"
-              slug=""
-            />
-          </div>
-        </div>
+        <IngredientesDaEpoca />
       </div>
       <Footer />
     </div>
