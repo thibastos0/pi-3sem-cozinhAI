@@ -50,6 +50,24 @@ export default function RecipeResults() {
     fetchRecipes();
   }, [query]);
 
+  if (!query) {
+    return (
+      <>
+        <Header />
+        <div className="min-h-screen flex text-center items-center justify-around max-w-4xl mx-auto">
+          <div>
+            <h1
+              className="mb-[1rem]"
+              style={{ fontSize: "2rem", color: "#2EC4B6" }}
+            >
+              Digite o nome da receita desejada na barra de pesquisa
+            </h1>
+          </div>
+        </div>
+      </>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -87,7 +105,7 @@ export default function RecipeResults() {
                     <h3 className="text-xl font-semibold text-[#22577A] mb-4">
                       {recipe.title}
                     </h3>
-                    <Botao texto="Ver receita" destino="/receitas" />
+                    <Botao texto="Ver receita" destino={`/receitas/receita/${recipe.id}`} /> {/*eu acho que ficaria mais intuitivo chamar a rota de receitas/info ou algo do tipo, renomear mais tarde*/}
                   </div>
                 </div>
               </div>
