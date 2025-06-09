@@ -24,15 +24,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Verificar se há um token no localStorage
-    const token = localStorage.getItem("token")
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token")
 
-    if (token) {
-      // Aqui você pode fazer uma chamada para o backend para validar o token
-      // e obter os dados do usuário
-      // Por enquanto, vamos apenas simular que o usuário está autenticado
-      setIsLoading(false)
-      // Implementação real: buscar dados do usuário com o token
-    } else {
+      if (token) {
+        // Simular que o usuário está autenticado
+        // Em uma implementação real, você faria uma chamada para o backend
+        // para validar o token e obter os dados do usuário
+        setUser({
+          id: "user-id",
+          name: "Usuário",
+          email: "usuario@exemplo.com",
+        })
+      }
+
       setIsLoading(false)
     }
   }, [])
@@ -40,13 +45,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     setIsLoading(true)
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || "https://pi-3sem-backend.onrender.com"}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
         },
-        body: JSON.stringify({ email, password }),
-      })
+      )
 
       if (!response.ok) {
         const error = await response.json()

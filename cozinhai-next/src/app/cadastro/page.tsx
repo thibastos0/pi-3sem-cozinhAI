@@ -7,17 +7,31 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { Eye, EyeOff, Check, X } from "lucide-react"
-import { useAuth } from "@/components/auth/auth-context"
 
-export default function LoginPage() {
+export default function CadastroPage() {
   const router = useRouter()
-  const { login } = useAuth()
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const [errors, setErrors] = useState<{ email?: string; password?: string; general?: string }>({})
+  const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string; general?: string }>({})
   const [isLoading, setIsLoading] = useState(false)
-  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false)
+
+  // Validações de senha baseadas nos requisitos do backend
+  const passwordRequirements = [
+    { id: "length", label: "Mínimo de 8 caracteres", test: (p: string) => p.length >= 8 },
+    { id: "uppercase", label: "Pelo menos uma letra maiúscula", test: (p: string) => /[A-Z]/.test(p) },
+    { id: "lowercase", label: "Pelo menos uma letra minúscula", test: (p: string) => /[a-z]/.test(p) },
+    { id: "number", label: "Pelo menos um número", test: (p: string) => /\d/.test(p) },
+    { id: "special", label: "Pelo menos um caractere especial (!@#$%^&*)", test: (p: string) => /[!@#$%^&*]/.test(p) },
+  ]
+
+  const validateName = (name: string) => {
+    if (!name) return "Nome não pode ser vazio"
+    if (name.length < 3) return "Nome deve conter no mínimo três caracteres"
+    if (name.length > 30) return "Nome deve conter no máximo trinta caracteres"
+    return ""
+  }
 
   const validateEmail = (email: string) => {
     if (!email) return "Email não pode ser vazio"
@@ -28,27 +42,26 @@ export default function LoginPage() {
 
   const validatePassword = (password: string) => {
     if (!password) return "Senha não pode ser vazia"
+    if (password.length < 8) return "Senha deve conter no mínimo 8 caracteres"
+    if (password.length > 64) return "Senha deve conter no máximo 64 caracteres"
+    if (!/(?=.*[A-Z])/.test(password)) return "Senha deve conter ao menos uma letra maiúscula"
+    if (!/(?=.*[a-z])/.test(password)) return "Senha deve conter ao menos uma letra minúscula"
+    if (!/(?=.*\d)/.test(password)) return "Senha deve conter ao menos um número"
+    if (!/(?=.*[!@#$%^&*])/.test(password)) return "Senha deve conter ao menos um caractere especial"
     return ""
   }
-
-  // Validações de senha em tempo real
-  const passwordRequirements = [
-    { id: "length", label: "Mínimo de 8 caracteres", test: (p: string) => p.length >= 8 },
-    { id: "uppercase", label: "Letra maiúscula", test: (p: string) => /[A-Z]/.test(p) },
-    { id: "lowercase", label: "Letra minúscula", test: (p: string) => /[a-z]/.test(p) },
-    { id: "number", label: "Número", test: (p: string) => /\d/.test(p) },
-    { id: "special", label: "Caractere especial (!@#$%^&*)", test: (p: string) => /[!@#$%^&*]/.test(p) },
-  ]
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Validação básica para o login
+    // Validação completa
+    const nameError = validateName(name)
     const emailError = validateEmail(email)
     const passwordError = validatePassword(password)
 
-    if (emailError || passwordError) {
+    if (nameError || emailError || passwordError) {
       setErrors({
+        name: nameError,
         email: emailError,
         password: passwordError,
       })
@@ -59,12 +72,42 @@ export default function LoginPage() {
     setErrors({})
 
     try {
-      await login(email, password)
-      router.push("/home")
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || "https://pi-3sem-backend.onrender.com"}/user`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, password }),
+        },
+      )
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        if (data.errors) {
+          // Mapear erros de validação do backend
+          const backendErrors: Record<string, string> = {}
+          Object.keys(data.errors).forEach((key) => {
+            backendErrors[key] = data.errors[key][0]
+          })
+          throw new Error(JSON.stringify(backendErrors))
+        }
+        throw new Error(data.message || "Erro ao criar conta")
+      }
+
+      // Redirecionar para a página de login com mensagem de sucesso
+      router.push("/home/login?success=true")
     } catch (error) {
-      setErrors({
-        general: error instanceof Error ? error.message : "Usuário ou senha inválidos",
-      })
+      try {
+        const parsedErrors = JSON.parse((error as Error).message)
+        setErrors(parsedErrors)
+      } catch {
+        setErrors({
+          general: error instanceof Error ? error.message : "Erro ao criar conta",
+        })
+      }
     } finally {
       setIsLoading(false)
     }
@@ -95,10 +138,10 @@ export default function LoginPage() {
             className="text-4xl font-bold bg-gradient-to-r from-[#22577A] to-[#57CC99] bg-clip-text text-transparent mb-3"
             style={{ fontFamily: "DaCherry" }}
           >
-            Bem-vindo de volta!
+            Junte-se ao CozinhAI
           </h1>
           <p className="text-gray-600 text-lg" style={{ fontFamily: "Alexandria" }}>
-            Acesse sua conta para salvar suas receitas favoritas
+            Comece a reduzir o desperdício de alimentos hoje
           </p>
         </div>
 
@@ -111,6 +154,35 @@ export default function LoginPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label
+                htmlFor="name"
+                className="block text-sm font-semibold text-[#22577A]"
+                style={{ fontFamily: "Alexandria" }}
+              >
+                Nome
+              </label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className={`w-full px-4 py-3 border-2 rounded-2xl bg-white/50 backdrop-blur focus:ring-2 focus:ring-[#57CC99] focus:border-[#57CC99] transition-all duration-300 ${
+                  errors.name ? "border-red-400" : "border-gray-200 hover:border-[#57CC99]/50"
+                }`}
+                placeholder="Seu nome"
+                style={{ fontFamily: "Alexandria" }}
+              />
+              {errors.name && (
+                <p
+                  className="text-sm text-red-600 animate-in slide-in-from-left duration-300"
+                  style={{ fontFamily: "Alexandria" }}
+                >
+                  {errors.name}
+                </p>
+              )}
+            </div>
+
             <div className="space-y-2">
               <label
                 htmlFor="email"
@@ -154,8 +226,6 @@ export default function LoginPage() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  onFocus={() => setShowPasswordRequirements(true)}
-                  onBlur={() => setShowPasswordRequirements(false)}
                   className={`w-full px-4 py-3 pr-12 border-2 rounded-2xl bg-white/50 backdrop-blur focus:ring-2 focus:ring-[#57CC99] focus:border-[#57CC99] transition-all duration-300 ${
                     errors.password ? "border-red-400" : "border-gray-200 hover:border-[#57CC99]/50"
                   }`}
@@ -179,60 +249,29 @@ export default function LoginPage() {
                 </p>
               )}
 
-              {/* Feedback em tempo real dos requisitos da senha */}
-              {showPasswordRequirements && password && (
-                <div className="mt-4 p-4 bg-gradient-to-r from-gray-50/80 to-white/80 backdrop-blur rounded-2xl border border-gray-200/50 animate-in slide-in-from-top duration-300">
-                  <p className="text-sm font-semibold text-[#22577A] mb-3" style={{ fontFamily: "Alexandria" }}>
-                    Requisitos da senha:
-                  </p>
-                  <ul className="space-y-2">
-                    {passwordRequirements.map((req) => (
-                      <li key={req.id} className="flex items-center text-sm transition-all duration-200">
-                        <div className={`mr-3 p-1 rounded-full ${req.test(password) ? "bg-green-100" : "bg-gray-100"}`}>
-                          {req.test(password) ? (
-                            <Check className="h-3 w-3 text-green-600" />
-                          ) : (
-                            <X className="h-3 w-3 text-gray-400" />
-                          )}
-                        </div>
-                        <span
-                          className={req.test(password) ? "text-green-700 font-medium" : "text-gray-500"}
-                          style={{ fontFamily: "Alexandria" }}
-                        >
-                          {req.label}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            <div className="flex items-center justify-between pt-2">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-[#22577A] focus:ring-[#57CC99] border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-3 block text-sm text-gray-700"
-                  style={{ fontFamily: "Alexandria" }}
-                >
-                  Lembrar-me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-[#22577A] hover:text-[#57CC99] transition-colors duration-200"
-                  style={{ fontFamily: "Alexandria" }}
-                >
-                  Esqueceu a senha?
-                </a>
+              <div className="mt-4 p-4 bg-gradient-to-r from-gray-50/80 to-white/80 backdrop-blur rounded-2xl border border-gray-200/50">
+                <p className="text-sm font-semibold text-[#22577A] mb-3" style={{ fontFamily: "Alexandria" }}>
+                  Requisitos da senha:
+                </p>
+                <ul className="space-y-2">
+                  {passwordRequirements.map((req) => (
+                    <li key={req.id} className="flex items-center text-sm transition-all duration-200">
+                      <div className={`mr-3 p-1 rounded-full ${req.test(password) ? "bg-green-100" : "bg-gray-100"}`}>
+                        {req.test(password) ? (
+                          <Check className="h-3 w-3 text-green-600" />
+                        ) : (
+                          <X className="h-3 w-3 text-gray-400" />
+                        )}
+                      </div>
+                      <span
+                        className={req.test(password) ? "text-green-700 font-medium" : "text-gray-500"}
+                        style={{ fontFamily: "Alexandria" }}
+                      >
+                        {req.label}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
@@ -245,10 +284,10 @@ export default function LoginPage() {
               {isLoading ? (
                 <div className="flex items-center justify-center">
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
-                  Entrando...
+                  Criando conta...
                 </div>
               ) : (
-                "Entrar"
+                "Criar conta"
               )}
             </button>
           </form>
@@ -265,12 +304,12 @@ export default function LoginPage() {
           </Link>
 
           <p className="text-gray-600" style={{ fontFamily: "Alexandria" }}>
-            Não tem uma conta?{" "}
+            Já tem uma conta?{" "}
             <Link
-              href="/cadastro"
+              href="/home/login"
               className="font-semibold text-[#22577A] hover:text-[#57CC99] transition-colors duration-200"
             >
-              Cadastre-se
+              Faça login
             </Link>
           </p>
         </div>
