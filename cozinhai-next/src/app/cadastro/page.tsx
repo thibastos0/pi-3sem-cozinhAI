@@ -83,12 +83,22 @@ export default function CadastroPage() {
         },
       )
 
-      const data = await response.json()
+      // Verifica se a resposta é JSON ou texto
+      const contentType = response.headers.get("content-type")
+      let data
+
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json()
+      } else {
+        // Se não for JSON, trata como texto
+        const text = await response.text()
+        data = { message: text }
+      }
 
       if (!response.ok) {
         if (data.errors) {
           // Mapear erros de validação do backend
-          const backendErrors: Record<string, string> = {}
+          const backendErrors: { [key: string]: string } = {}
           Object.keys(data.errors).forEach((key) => {
             backendErrors[key] = data.errors[key][0]
           })
@@ -98,7 +108,7 @@ export default function CadastroPage() {
       }
 
       // Redirecionar para a página de login com mensagem de sucesso
-      router.push("/home/login?success=true")
+      router.push("/login?success=true")
     } catch (error) {
       try {
         const parsedErrors = JSON.parse((error as Error).message)
