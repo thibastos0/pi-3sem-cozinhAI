@@ -5,7 +5,7 @@ import SearchBar from "./SearchBar"
 import Image from "next/image"
 import { useAuth } from "@/components/auth/auth-context"
 import { useState, useRef, useEffect } from "react"
-import { User, Settings, LogOut, ChevronDown } from "lucide-react"
+import { BookOpen, Star, Settings, LogOut, User, ChevronDown } from "lucide-react"
 
 export default function Header() {
   const { user, isAuthenticated, logout } = useAuth()
@@ -77,7 +77,29 @@ export default function Header() {
                   </div>
 
                   {/* Opções do menu */}
+
+
                   <div className="py-1">
+                    <Link
+                      href="/favorites"
+                      className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+                      style={{ fontFamily: "Alexandria" }}
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <BookOpen className="w-4 h-4 text-[#22577A]" />
+                      Caderno de Receitas
+                    </Link>
+
+                    <Link
+                      href="/avaliacoes"
+                      className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+                      style={{ fontFamily: "Alexandria" }}
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <Star className="w-4 h-4 text-[#22577A]" />
+                      Avaliações
+                    </Link>
+
                     <Link
                       href="/perfil"
                       className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
@@ -88,6 +110,7 @@ export default function Header() {
                       Configurações
                     </Link>
 
+                    <hr className="my-1 border-t border-gray-100" />
                     <button
                       onClick={handleLogout}
                       className="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200 w-full text-left"
