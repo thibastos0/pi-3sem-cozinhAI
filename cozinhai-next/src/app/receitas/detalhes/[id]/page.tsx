@@ -8,10 +8,17 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 
 
+interface Ingrediente {
+  id: number,
+  name: string,
+  unit: string,
+  amount: number
+}
+
 export default async function ReceitaPage() {
   const params = useParams()
   const idReceita = params.id
-  const chaveApi = "" //ligar no .env
+  const chaveApi = "d9e89aa107a2446ea222d9c3004ad5ed" //ligar no .env
   const fetchUrl = `https://api.spoonacular.com/recipes/${idReceita}/information?apiKey=${chaveApi}`
 
   let data
@@ -27,7 +34,7 @@ export default async function ReceitaPage() {
     console.error("Erro ao carregar detalhes da receita:", error)
     return (
       <>
-        <p>Erro, por favor tente novamente</p>
+        <p>Erro ao carregar receita, por favor tente novamente</p>
         <Link href="/home" />
       </>
     )
@@ -39,13 +46,13 @@ export default async function ReceitaPage() {
       <Header />
 
       <main className="flex flex-col items-center px-6 py-12 gap-8">
-        <img
+        <Image
           src="/images/fullLogo.svg"
           alt="Logo Cozinhaí"
           className="w-64 mb-6"
         />
 
-        <h1 className="text-[#22577A] font-bold text-3xl text-center">🍽️ {data.title}</h1>
+        <h1 className="text-[#22577A] font-bold text-3xl text-center">{data.title}</h1>
 
         <Image
           src={data.image}
@@ -64,14 +71,14 @@ export default async function ReceitaPage() {
         <div className="w-full max-w-2xl">
           <h3 className="text-[#22577A] font-bold text-xl mt-6 mb-2">Ingredientes:</h3>
           <ul className="list-disc list-inside text-[#22577A] text-lg font-medium">
-            {data.ingredient.map((item, i) => (
-              <li key={i}>{item}</li>
+            {data.extendedIngredients.map((ingrediente: Ingrediente) => (
+              <li key={ingrediente.id}>{ingrediente.amount} {ingrediente.unit} {ingrediente.name}</li>
             ))}
           </ul>
 
           <h3 className="text-[#22577A] font-bold text-xl mt-6 mb-2">Modo de preparo:</h3>
           <p className="text-[#22577A] text-lg font-medium whitespace-pre-line">
-            {receita.preparo}
+            {data.instructions}
           </p>
         </div>
       </main>
