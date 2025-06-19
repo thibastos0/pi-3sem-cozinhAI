@@ -22,7 +22,7 @@ export default function FavoritesPage() {
   const [loading, setLoading] = useState(true)
   const [offset, setOffset] = useState(0)
   const [hasMore, setHasMore] = useState(true)
-  const limit = 10
+  const limit = 12
 
   const fetchFavorites = useCallback(async () => {
     if (!user?.id || !hasMore) return
@@ -117,7 +117,7 @@ export default function FavoritesPage() {
                   className="flex flex-col bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-200 p-4 cursor-pointer"
                   onClick={() => getRecipeUrlAndRedirect(recipe.recipeId)}
                 >
-                  {recipe.recipeImage && (
+                  {recipe.recipeImage ? (
                     <Image
                       src={recipe.recipeImage}
                       alt={recipe.title}
@@ -125,6 +125,8 @@ export default function FavoritesPage() {
                       height={200}
                       className="w-full h-40 object-cover rounded-xl mb-3"
                     />
+                  ) : (
+                    <div className="w-full h-40 bg-gray-100 rounded-xl mb-3" />
                   )}
                   <h2 className="text-base font-semibold text-[#22577A] mb-2" style={{ fontFamily: 'Alexandria' }}>
                     {recipe.title}
