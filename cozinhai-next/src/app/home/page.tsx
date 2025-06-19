@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import IngredientesDaEpoca from "@/components/ingredientes-da-epoca";
 import { apiKey } from "@/app/receitas/page";
+import Image from "next/image";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
@@ -84,7 +85,14 @@ export default function Home() {
       <div
         className={`flex flex-col items-center justify-center gap-20 px-4 py-16 sm:px-6 ${styles.main}`}
       >
-        <img src="/images/fullLogo.svg" alt="" className="max-w-full h-auto" />
+        <div className="relative w-[12rem] aspect-[3/1]">
+  <Image
+    src="/images/fullLogo.svg"
+    alt="Logo completo"
+    fill
+    className="object-contain"
+  />
+</div>
 
         <main className="flex flex-col items-center w-full">
           <h1 className="text-[#22577A] font-bold text-xl sm:text-2xl p-6 sm:p-10 text-center">
