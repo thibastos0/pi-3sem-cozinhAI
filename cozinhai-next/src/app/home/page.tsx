@@ -10,7 +10,7 @@ import { apiKey } from "@/app/receitas/page";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
-  const [ingredients, setIngredients] = useState<String[]>([]);
+  const [ingredients, setIngredients] = useState<string[]>([]);
   const [suggestions, setSuggestions] = useState<{ name: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [recipes, setRecipes] = useState<any[]>([]);
@@ -184,6 +184,8 @@ export default function Home() {
             slug="bolo-de-caneca"
           />
         </div>
+
+        {/* <RandomRecommendations number={3} title="Sugestões do Dia" /> */}
 
         <IngredientesDaEpoca />
       </div>
