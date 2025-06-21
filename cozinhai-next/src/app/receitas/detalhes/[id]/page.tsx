@@ -1,7 +1,3 @@
-"use client"
-
-import { notFound } from 'next/navigation';
-import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -15,30 +11,19 @@ interface Ingrediente {
   amount: number
 }
 
-export default async function ReceitaPage() {
-  const params = useParams()
-  const idReceita = params.id
-  const chaveApi = "d9e89aa107a2446ea222d9c3004ad5ed" //ligar no .env
-  const fetchUrl = `https://api.spoonacular.com/recipes/${idReceita}/information?apiKey=${chaveApi}`
+export default async function ReceitaPage({ params }: { params: { id: string } }) {
+  const idReceita = params.id;
+  const chaveApi = "d9e89aa107a2446ea222d9c3004ad5ed"; // ligar no .env
+  const fetchUrl = `https://api.spoonacular.com/recipes/${idReceita}/information?apiKey=${chaveApi}`;
 
-  let data
-  try {
-    const response = await fetch(fetchUrl)
+const response = await fetch(fetchUrl);
 
-    if (!response.ok) {
-      throw new Error(`Erro ao buscar as receitas`);
-    }
+if (!response.ok) {
+  throw new Error("Erro ao buscar as receitas");
+}
 
-    data = await response.json()
-  } catch (error) {
-    console.error("Erro ao carregar detalhes da receita:", error)
-    return (
-      <>
-        <p>Erro ao carregar receita, por favor tente novamente</p>
-        <Link href="/home" />
-      </>
-    )
-  }
+const data = await response.json();
+
 
   if (data){
   return (
