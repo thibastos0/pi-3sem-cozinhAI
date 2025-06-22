@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "@/app/styles/home.module.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface CardProps {
   placeholder: string;
@@ -16,6 +17,14 @@ export default function SearchBar({
   searchUrl,
 }: CardProps) {
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+
+  const handleSearch = () => {
+    if (!search.trim()) return
+    setLoading(true)
+    router.push(`/receitas?query=${encodeURIComponent(search)}`)
+  }
 
   return (
     <div
@@ -28,13 +37,20 @@ export default function SearchBar({
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <Link href={`/receitas?query=${encodeURIComponent(search)}`}>
-        <img
-          className={`w-4 sm:w-5 ${styles.lupaIcon}`}
-          src={imgURL}
-          alt="Buscar"
-        />
-      </Link>
+      <button onClick={handleSearch}
+        disabled={loading}
+        className="disabled:opacity-50"
+      >
+        {
+          loading ? (<div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-[#22577A]" />
+          ) : (
+            <img
+              className={`w-4 sm:w-5 ${styles.lupaIcon}`}
+              src={imgURL}
+              alt="Buscar"
+            />
+          )}
+      </button>
     </div>
   );
 }

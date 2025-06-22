@@ -75,7 +75,7 @@ export default function RecipeResults() {
       <main className="max-w-7xl mx-auto px-4 py-4 pt-18">
         <div className="max-w-4xl mx-auto">
           <h1
-            className="mb-[1rem]"
+            className="mb-[1rem] mt-[5rem]"
             style={{ fontSize: "3.246rem", color: "#2EC4B6" }}
           >
             Resultados para "{query}"
