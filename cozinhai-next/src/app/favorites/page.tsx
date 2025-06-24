@@ -6,6 +6,7 @@ import axios from 'axios'
 import { Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import Header from '@/components/Header'
+import { useRouter } from 'next/navigation'
 
 type FavoriteRecipe = {
   recipeId: string
@@ -14,10 +15,10 @@ type FavoriteRecipe = {
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
-const SPOONACULAR_API_KEY = process.env.NEXT_PUBLIC_SPOONACULAR_API_KEY
 
 export default function FavoritesPage() {
   const { user } = useAuth()
+  const router = useRouter()
   const [favorites, setFavorites] = useState<FavoriteRecipe[]>([])
   const [loading, setLoading] = useState(true)
   const [offset, setOffset] = useState(0)
@@ -42,14 +43,13 @@ export default function FavoritesPage() {
       if (response.data.length < limit) {
         setHasMore(false)
       }
-      console.log('Favorites recebidos da API:', response.data)
+
       setFavorites((prev) => [...prev, ...response.data])
     } catch (error) {
       console.error('Erro ao buscar favoritos:', error)
     } finally {
       setLoading(false)
     }
-
   }, [user?.id, offset, hasMore])
 
   const removeFavorite = async (recipeId: string) => {
@@ -69,23 +69,8 @@ export default function FavoritesPage() {
     }
   }
 
-  const getRecipeUrlAndRedirect = async (id: string) => {
-    try {
-      const response = await axios.get(
-        `https://api.spoonacular.com/recipes/${id}/information`,
-        {
-          params: {
-            apiKey: SPOONACULAR_API_KEY,
-          },
-        }
-      )
-      const url = response.data.sourceUrl
-      if (url) window.open(url, '_blank')
-      else alert('URL da receita não encontrada.')
-    } catch (error) {
-      console.error('Erro ao buscar receita:', error)
-      alert('Não foi possível abrir a receita.')
-    }
+  const goToRecipeDetails = (id: string) => {
+    router.push(`/receitas/detalhes/${id}`)
   }
 
   useEffect(() => {
@@ -115,7 +100,7 @@ export default function FavoritesPage() {
                 <li
                   key={recipe.recipeId}
                   className="flex flex-col bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-200 p-4 cursor-pointer"
-                  onClick={() => getRecipeUrlAndRedirect(recipe.recipeId)}
+                  onClick={() => goToRecipeDetails(recipe.recipeId)}
                 >
                   {recipe.recipeImage ? (
                     <Image
